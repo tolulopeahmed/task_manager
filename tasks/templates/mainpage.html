@@ -1,0 +1,204 @@
+{% load static %}
+
+<div class="main-content flex-1 bg-white p-4 ml--2 mt-2 mb-2 mr-2">
+    <!-- Top bar -->
+    <div class="flex justify-between items-center mb-4 flex-wrap">
+        <!-- Search bar -->
+        <div class="flex items-center bg-gray-200 p-2 rounded-lg  md:w-90%">
+            <i class="fas fa-search text-gray-500 mr-2"></i>
+            <input type="text" placeholder="Search tasks" class="bg-gray-200 text-gray-500 focus:outline-none w-full">
+        </div>
+        <!-- Icons on the right -->
+        <div class="flex items-center space-x-4 mt-4 md:mt-0">
+            <i class="far fa-comment-dots text-gray-700 text-xl"></i>
+            <i class="far fa-bell text-gray-700 text-xl"></i>
+            <img src="{% static 'images/DrTsquare.png' %}" alt="Profile" class="w-8 h-8 rounded-full">
+        </div>
+    </div>
+
+    <!-- Additional elements -->
+    <div class="flex justify-between items-center mb-4 mt-14 flex-wrap">
+        <!-- Buttons on the left -->
+        <div class="flex items-center space-x-4 mb-4 md:mb-0">
+            <button class="flex items-center text-sm text-gray-700 border border-gray-300 rounded-md px-2 py-1">
+                <i class="far fa-eye text-sm mr-1"></i>
+                Preview
+            </button>
+            <button class="flex items-center text-sm text-gray-700 border border-gray-300 rounded-md px-2 py-1">
+                <i class="fas fa-sort text-sm mr-1"></i>
+                Sort
+            </button>
+            <button class="flex items-center text-sm text-gray-700 border border-gray-300 rounded-md px-2 py-1">
+                <i class="fas fa-filter text-sm mr-1"></i>
+                Filter
+            </button>
+        </div>
+
+        <!-- Icons and buttons on the right -->
+        <div class="flex items-center space-x-4">
+            <!-- Profile icons -->
+            <div class="relative flex items-center space-x-[-12px]">
+                <img src="{% static 'images/segun.png' %}" alt="Profile" class="w-8 h-8 rounded-full border border-gray-100">
+                <img src="{% static 'images/mundi.png' %}" alt="Profile" class="w-8 h-8 rounded-full -ml-3 border border-gray-100">
+                <img src="{% static 'images/emmanuel.jpg' %}" alt="Profile" class="w-8 h-8 rounded-full -ml-3 border border-gray-100">
+                <img src="{% static 'images/bukola.png' %}" alt="Profile" class="w-8 h-8 rounded-full -ml-3 border border-gray-100">
+                <div class="w-8 h-8 rounded-full bg-purple-700 flex items-center justify-center -ml-3 border border-gray-100">
+                    <span class="text-white text-xs">+3</span>
+                </div>
+            </div>
+            
+            <!-- Plus button -->
+            <div class="flex items-center justify-center bg-gray-200 rounded-full w-8 h-8">
+                <i class="fas fa-plus text-gray-700"></i>
+            </div>
+
+            <!-- Add task button -->
+            <button class="flex items-center bg-purple-700 text-white px-4 py-2 rounded-lg">
+                <i class="fas fa-plus mr-2"></i>
+                Add Task
+            </button>
+        </div>
+    </div>
+
+    <!-- Task status bars -->
+    <div class="flex flex-col md:flex-row justify-between mt-14 space-y-4 md:space-y-0 md:space-x-4">
+        <!-- In Progress -->
+        <div class="w-90% mb-10">
+            <div class="flex items-center bg-transparent border-2 border-purple-700 p-2 rounded-lg">
+                <span class="font-bold text-black ml-3">In Progress <span class="text-gray-400 ml-1">(2)</span></span>
+                <i class="fas fa-ellipsis-v text-black ml-auto mr-3"></i>
+            </div>
+
+            <!-- In Progress details -->
+            <div class="flex mt-6 space-x-4">
+                <button class="text-black text-center text-xs font-bold" style="background-color: #F4D0D0; padding: 0.5rem 1rem; border-radius: 0.25rem;">High</button>
+                <button class="bg-white text-center text-xs font-bold shadow px-2 py-1 rounded flex items-center">
+                    <i class="far fa-clock text-purple-700 mr-1 font-bold"></i>
+                    <span class="text-purple-700 font-bold">6:00 PM</span>
+                </button>
+                <button class="text-purple-700 text-center font-bold text-xs" style="background-color: #EBE4FF; padding: 0.5rem 1rem; border-radius: 0.25rem;">UX Design</button>
+            </div>
+            
+            <div class="p-4 mt-3 rounded-lg" style="background-color: #E8E8E8;">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-black">User Flow</span>
+                    <i class="fas fa-ellipsis-v text-gray-400"></i>
+                </div>
+                <p class="mt-2 text-gray-500 text-sm">Designing a dashboard involves creating a visual interface that...</p>
+                <button class="flex items-center border border-gray-300 rounded px-2 py-1 mt-4">
+                    <i class="fas fa-tasks mr-1 text-gray-400 text-sm"></i>
+                    <span class="text-gray-400 text-sm">0/3</span>
+                </button>
+                <div class="flex justify-between items-center mt-2">
+                    <div class="flex -space-x-2">
+                        <img src="{% static 'images/segun.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                        <img src="{% static 'images/Profile1.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                        <img src="{% static 'images/DrTsquare.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                        <div class="w-6 h-6 rounded-full bg-purple-700 flex items-center justify-center border border-gray-100">
+                            <span class="text-white text-xs">+2</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <i class="far fa-eye text-purple-700"></i>
+                        <i class="fas fa-trash text-purple-700"></i>
+                        <i class="fas fa-edit text-purple-700"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Completed Task -->
+        <div class="w-90% mt-10 mb-10" style="margin-bottom: 10">
+            <div class="flex items-center bg-transparent border-2 border-purple-700 p-2 rounded-lg">
+                <span class="font-bold text-black ml-3">Completed Task <span class="text-gray-400 ml-1">(4)</span></span>
+                <i class="fas fa-ellipsis-v text-black ml-auto mr-3"></i>
+            </div>
+
+            <!-- Completed Task details -->
+            <div class="flex mt-6 space-x-4">
+                <button class="text-center text-xs font-bold" style="background-color: #E8E8E8; color: #c73434; padding: 0.5rem 1rem; border-radius: 0.25rem;">High</button>
+                <button class="bg-white text-center text-xs font-bold shadow px-2 py-1 rounded flex items-center" style="background-color: #E8E8E8; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+                    <i class="far fa-clock text-purple-700 mr-1 font-bold"></i>
+                    <span class="text-purple-700 font-bold">6:00 PM</span>
+                </button>
+                <button class="text-violet text-center font-bold text-xs" style="background-color: #E8E8E8; color: #c82cb3;  padding: 0.5rem 1rem; border-radius: 0.25rem;">UX Design</button>
+            </div>
+
+            
+            <div class="p-4 mt-3 rounded-lg" style="background-color: #E8E8E8;">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-black">User Flow</span>
+                    <i class="fas fa-ellipsis-v text-gray-400"></i>
+                </div>
+                <p class="mt-2 text-gray-500 text-sm">Designing a dashboard involves creating a visual interface that...</p>
+                <button class="flex items-center border border-gray-300 rounded px-2 py-1 mt-4">
+                    <i class="fas fa-tasks mr-1 text-gray-400 text-sm"></i>
+                    <span class="text-gray-400 text-sm">0/3</span>
+                </button>
+                <div class="flex justify-between items-center mt-2">
+                    <div class="flex -space-x-2">
+                        <img src="{% static 'images/segun.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                        <img src="{% static 'images/Profile1.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                        <img src="{% static 'images/DrTsquare.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                        <div class="w-6 h-6 rounded-full bg-purple-700 flex items-center justify-center border border-gray-100">
+                            <span class="text-white text-xs">+2</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <i class="far fa-eye text-purple-700"></i>
+                        <i class="fas fa-trash text-purple-700"></i>
+                        <i class="fas fa-edit text-purple-700"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+               <!-- Over-Due Task -->
+               <div class="w-90% mt-10 mb-10" style="margin-top: 10">
+                <div class="flex items-center bg-transparent border-2 border-purple-700 p-2 rounded-lg">
+                    <span class="font-bold text-black ml-3">Over-Due <span class="text-gray-400 ml-1">(4)</span></span>
+                    <i class="fas fa-ellipsis-v text-black ml-auto mr-3"></i>
+                </div>
+    
+                <!-- Completed Task details -->
+                <div class="flex mt-6 space-x-4">
+                    <button class="text-center text-xs font-bold" style="background-color: #E8E8E8; color: #c73434; padding: 0.5rem 1rem; border-radius: 0.25rem;">High</button>
+                    <button class="bg-white text-center text-xs font-bold shadow px-2 py-1 rounded flex items-center" style="background-color: #E8E8E8; padding: 0.5rem 1rem; border-radius: 0.25rem;">
+                        <i class="far fa-clock text-purple-700 mr-1 font-bold"></i>
+                        <span class="text-purple-700 font-bold">6:00 PM</span>
+                    </button>
+                    <button class="text-violet text-center font-bold text-xs" style="background-color: #E8E8E8; color: #c82cb3;  padding: 0.5rem 1rem; border-radius: 0.25rem;">UX Design</button>
+                </div>
+    
+                
+                <div class="p-4 mt-3 rounded-lg" style="background-color: #E8E8E8;">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-black">User Flow</span>
+                        <i class="fas fa-ellipsis-v text-gray-400"></i>
+                    </div>
+                    <p class="mt-2 text-gray-500 text-sm">Designing a dashboard involves creating a visual interface that...</p>
+                    <button class="flex items-center border border-gray-300 rounded px-2 py-1 mt-4">
+                        <i class="fas fa-tasks mr-1 text-gray-400 text-sm"></i>
+                        <span class="text-gray-400 text-sm">0/3</span>
+                    </button>
+                    <div class="flex justify-between items-center mt-2">
+                        <div class="flex -space-x-2">
+                            <img src="{% static 'images/segun.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                            <img src="{% static 'images/Profile1.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                            <img src="{% static 'images/DrTsquare.png' %}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
+                            <div class="w-6 h-6 rounded-full bg-purple-700 flex items-center justify-center border border-gray-100">
+                                <span class="text-white text-xs">+2</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4">
+                            <i class="far fa-eye text-purple-700"></i>
+                            <i class="fas fa-trash text-purple-700"></i>
+                            <i class="fas fa-edit text-purple-700"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
