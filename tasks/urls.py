@@ -15,4 +15,5 @@ urlpatterns = [
     path('api/tasks/search/', TaskViewSet.as_view({'get': 'search'}), name='task-search'),
     path('tasks/', task_list, name='task_list'),
     path('tasks/<str:status>/', task_status_list, name='task_status_list'),
+    path('tasks/<int:pk>/delete/', TaskViewSet.as_view({'delete': 'delete_task'}), name='task-delete'),
 ]

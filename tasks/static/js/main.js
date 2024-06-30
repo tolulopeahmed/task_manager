@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    // Load tasks function remains the same
     function loadTasks(status = '') {
         let url = '/api/tasks/';
         if (status) {
@@ -38,13 +39,13 @@ $(document).ready(function() {
                                     <img src="${imageUrls.drtsquare}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
                                     <img src="${imageUrls.segun}" alt="Profile" class="w-6 h-6 rounded-full border border-gray-100">
                                     <div class="w-6 h-6 rounded-full bg-purple-700 flex items-center justify-center border border-gray-100">
-                                    <span class="text-white text-xs">+2</span>
+                                        <span class="text-white text-xs">+2</span>
                                     </div>
                                 </div>
                                 <div class="flex space-x-4">
-                                    <i class="far fa-eye text-purple-700"></i>
-                                    <i class="fas fa-trash text-purple-700"></i>
-                                    <i class="fas fa-edit text-purple-700"></i>
+                                    <i class="far fa-eye text-gray-700 viewTaskButton" data-task-id="${task.id}"></i>
+                                    <i class="fas fa-trash text-gray-700 deleteTaskButton" data-task-id="${task.id}"></i>
+                                    <i class="fas fa-edit text-gray-700 editTaskButton" data-task-id="${task.id}"></i>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +134,6 @@ $(document).ready(function() {
         });
     });
 
-
     function toggleSidebar() {
         const sidebar = $('#sidebar');
         const sidebarContent = $('#sidebarContent');
@@ -181,4 +181,109 @@ $(document).ready(function() {
     }
 
     $(window).on('resize', checkSidebarState).trigger('resize');
+
+    // Open the edit task modal
+    $(document).on('click', '.editTaskButton', function() {
+        const taskId = $(this).data('task-id');
+        $.get('/api/tasks/' + taskId + '/', function(task) {
+            $('#editTaskTitle').val(task.title);
+            $('#editTaskDescription').val(task.description);
+            $('#editTaskStatus').val(task.status);
+            $('#editTaskPriority').val(task.priority);
+            $('#editTaskDueDate').val(task.due_date);
+            $('#editTaskCategory').val(task.category);
+            $('#editTaskAssignedTo').val(task.assigned_to);
+            $('#saveEditTaskButton').data('task-id', taskId);
+            $('#editTaskModal').removeClass('hidden');
+        });
+    });
+
+    // Save the edited task
+    $('#saveEditTaskButton').on('click', function() {
+        const taskId = $(this).data('task-id');
+        const editedTask = {
+            title: $('#editTaskTitle').val(),
+            description: $('#editTaskDescription').val(),
+            status: $('#editTaskStatus').val(),
+            priority: $('#editTaskPriority').val(),
+            due_date: $('#editTaskDueDate').val(),
+            category: $('#editTaskCategory').val(),
+            assigned_to: $('#editTaskAssignedTo').val()
+        };
+
+        $.ajax({
+            url: '/api/tasks/' + taskId + '/',
+            method: 'PUT',
+            data: JSON.stringify(editedTask),
+            contentType: 'application/json',
+            success: function(data) {
+                $('#editTaskModal').addClass('hidden');
+                loadTasks('in_progress');
+                loadTasks('completed');
+                loadTasks('overdue');
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+    
+    // Delete a task
+    $(document).on('click', '.deleteTaskButton', function() {
+        const taskId = $(this).data('task-id');
+        $('#confirmDeleteButton').data('task-id', taskId);
+        $('#deleteTaskModal').removeClass('hidden');
+    });
+
+    // Confirm delete task
+    $('#confirmDeleteButton').on('click', function() {
+        const taskId = $(this).data('task-id');
+
+        $.ajax({
+            url: '/api/tasks/' + taskId + '/',
+            method: 'DELETE',
+            success: function() {
+                loadTasks('in_progress');
+                loadTasks('completed');
+                loadTasks('overdue');
+                $('#deleteTaskModal').addClass('hidden');
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+    // Close modals
+    $('#closeEditModalButton, #cancelEditButton').on('click', function() {
+        $('#editTaskModal').addClass('hidden');
+    });
+
+    $('#closeDeleteModalButton, #cancelDeleteButton').on('click', function() {
+        $('#deleteTaskModal').addClass('hidden');
+    });
+
+    // View task functionality
+    $(document).on('click', '.viewTaskButton', function() {
+        const taskId = $(this).data('task-id');
+        $.get('/api/tasks/' + taskId + '/', function(task) {
+            $('#viewTaskTitle').text(task.title);
+            $('#viewTaskDescription').text(task.description);
+            $('#viewTaskStatus').text(task.status);
+            $('#viewTaskPriority').text(task.priority);
+            $('#viewTaskDueDate').text(task.due_date);
+            $('#viewTaskCategory').text(task.category);
+            $('#viewTaskAssignedTo').text(task.assigned_to);
+            $('#viewTaskModal').removeClass('hidden');
+        });
+    });
+
+    $('#closeViewModalButton').click(function() {
+        $('#viewTaskModal').addClass('hidden');
+    });
+
+    $('#closeEditModalButton').click(function() {
+        $('#editTaskModal').addClass('hidden');
+    });
 });

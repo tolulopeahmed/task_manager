@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -8,6 +8,7 @@ from django.db.models import Q
 from .models import Task
 from .serializers import TaskSerializer
 from rest_framework.parsers import JSONParser
+from django.shortcuts import get_object_or_404
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
@@ -48,6 +49,21 @@ class TaskViewSet(viewsets.ModelViewSet):
         )
         serializer = self.get_serializer(tasks, many=True)
         return Response(serializer.data)
+
+    @action(detail=True, methods=['put'], url_path='edit')
+    def edit_task(self, request, pk=None):
+        task = get_object_or_404(Task, pk=pk)
+        serializer = self.get_serializer(task, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['delete'], url_path='delete')
+    def delete_task(self, request, pk=None):
+        task = get_object_or_404(Task, pk=pk)
+        task.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 def index(request):
     return render(request, 'index.html')  # Ensure you have an 'index.html' template
