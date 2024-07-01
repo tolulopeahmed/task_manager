@@ -34,23 +34,48 @@
         <div class="flex text-center">
             <img src="{% static 'images/rocket.png' %}" alt="Rocket" class="absolute -top-16 h-32 mt-2">
         </div>
-        <div class="text-center ">
+        <div class="text-center">
             <p class="text-sm mt-10 mb--14">Upgrade to Pro</p>
         </div>
     </div>
 </div>
 
 <script>
-    function handleMenuClick(element) {
-        // Remove 'active' class from all menu items
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.classList.remove('active');
-        });
+function handleMenuClick(element) {
+    // Remove 'active' class from all menu items
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.classList.remove('active');
+    });
 
-        // Add 'active' class to the clicked menu item
-        element.classList.add('active');
+    // Add 'active' class to the clicked menu item
+    element.classList.add('active');
+
+    // Hide all content sections
+    const contentSections = document.querySelectorAll('.menu-content');
+    contentSections.forEach(section => {
+        section.classList.add('hidden');
+    });
+
+    // Determine which content section to show based on the clicked menu item
+    const menuText = element.innerText.trim();
+    switch (menuText) {
+        case 'Dashboard':
+            document.getElementById('dashboardContent').classList.remove('hidden');
+            break;
+        case 'Tasks':
+            document.getElementById('tasksContent').classList.remove('hidden');
+            break;
+        case 'Calendar':
+            document.getElementById('calendarContent').classList.remove('hidden');
+            break;
+        case 'Members':
+            document.getElementById('membersContent').classList.remove('hidden');
+            break;
+        default:
+            break;
     }
+}
 </script>
 
 <style>
@@ -62,5 +87,10 @@
     }
     .transition-all {
         transition: all 0.3s ease;
+    }
+    /* Adjust sidebar border radius */
+    .sidebar {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 </style>

@@ -1,7 +1,9 @@
 {% load static %}
 
 <div class="main-content flex-1 bg-white p-4 ml--9 mt-2 mb-2 mr-2 h-screen overflow-auto">
-    <!-- Top bar -->
+
+    <div id="dashboardContent" class="menu-content">
+        <!-- Top bar -->
     <div class="flex justify-between items-center mb-4 flex-wrap">
         <!-- Search bar -->
         <div class="flex items-center bg-gray-200 p-2 rounded-lg md:w-90%">
@@ -234,6 +236,25 @@
         </div>
     </div>
 </div>
+
+
+
+
+<div id="tasksContent" class="menu-content hidden">
+    <p class="text-3xl font-bold" style="font-size: 20">Tasks</p>
+    <h1 class="text-gray-500 text-sm">Get started on your tasks</h1>
+</div>
+<div id="calendarContent" class="menu-content hidden">
+    <p class="text-3xl font-bold" style="font-size: 20">Calendar</p>
+    <h1 class="text-gray-500 text-sm">Schedule your tasks</h1>
+</div>
+<div id="membersContent" class="menu-content hidden">
+    <p class="text-3xl font-bold" style="font-size: 20">Members</p>
+    <h1 class="text-gray-500 text-sm">Manage users and admin</h1>
+</div>
+
+</div>
+
 
 
 
