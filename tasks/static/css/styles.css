@@ -44,4 +44,11 @@ body {
     margin-top: auto; /* Push to the bottom */
 }
 
-/* Adjust other styles as per your design */
+
+.inputField.invalid {
+    border-color: red;
+}
+
+.inputField.valid {
+    border-color: green;
+}

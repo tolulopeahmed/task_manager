@@ -24,15 +24,33 @@
                 <i class="far fa-eye text-sm mr-1"></i>
                 Preview
             </button>
-            <button id="sortButton" class="flex items-center text-sm text-gray-700 border border-gray-300 rounded-md px-2 py-1">
-                <i class="fas fa-sort text-sm mr-1"></i>
-                Sort
-            </button>
-            <button id="filterButton" class="flex items-center text-sm text-gray-700 border border-gray-300 rounded-md px-2 py-1">
-                <i class="fas fa-filter text-sm mr-1"></i>
-                Filter
-            </button>
+            <div class="relative inline-block text-left">
+                <label for="sortSelect" class="sr-only">Sort</label>
+                <select id="sortSelect" class="flex items-center text-sm text-gray-700 border border-gray-300 rounded-md px-2 py-1">
+                    <option value="">Sort</option>
+                    <option value="due_date">Due Date</option>
+                </select>
+            </div>
+                  
+            <div class="relative inline-block text-left">
+                <select id="filterSelect" class="flex items-center text-sm text-gray-700 border border-gray-300 rounded-md px-2 py-1">
+                    <option value="">Filter</option>
+                    <optgroup label="Priority">
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </optgroup>
+                    <optgroup label="Category">
+                        <option value="UX Design">UX Design</option>
+                        <option value="Development">Development</option>
+                        <option value="Production">Production</option>
+                    </optgroup>
+                </select>
+                
+            </div>
+                   
         </div>
+        
 
         <!-- Icons and buttons on the right -->
         <div class="flex items-center space-x-4">
@@ -64,26 +82,25 @@
      
     <div class="flex flex-col md:flex-row justify-between mt-6 space-y-4 md:space-y-0 md:space-x-4">
         <!-- In Progress -->
-        <div id="inProgressTasks" class="w-full mb-10 p-10">
+        <div id="inprogressTasks" class="w-full mb-10 p-10" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="flex items-center bg-transparent border-2 border-purple-700 p-2 rounded-lg">
-                <span class="font-bold text-black ml-3">In Progress <span id="inProgressCount" class="text-gray-400 ml-1">(0)</span></span>
+                <span class="font-bold text-black ml-3">In Progress <span id="inprogressCount" class="text-gray-400 ml-1">(0)</span></span>
                 <i class="fas fa-ellipsis-v text-gray-500 ml-auto mr-3"></i>
             </div>
-            <div id="inProgressTaskList" class="task-list"></div>
+            <div id="inprogressTaskList" class="task-list"></div>
         </div>
-        
-
+    
         <!-- Completed Task -->
-        <div id="completedTasks" class="w-full mt-10 mb-10 p-10">
+        <div id="completedTasks" class="w-full mt-10 mb-10 p-10" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="flex items-center bg-transparent border-2 border-purple-700 p-2 rounded-lg">
                 <span class="font-bold text-black ml-3">Completed Task <span id="completedCount" class="text-gray-400 ml-1">(0)</span></span>
                 <i class="fas fa-ellipsis-v text-gray-500 ml-auto mr-3"></i>
             </div>
             <div id="completedTaskList" class="task-list"></div>
         </div>
-
+    
         <!-- Overdue Task -->
-        <div id="overdueTasks" class="w-full mt-10 mb-10 p-10">
+        <div id="overdueTasks" class="w-full mt-10 mb-10 p-10" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="flex items-center bg-transparent border-2 border-purple-700 p-2 rounded-lg">
                 <span class="font-bold text-black ml-3">Overdue <span id="overdueCount" class="text-gray-400 ml-1">(0)</span></span>
                 <i class="fas fa-ellipsis-v text-gray-500 ml-auto mr-3"></i>
@@ -94,8 +111,6 @@
 </div>
 
 
-
-
 <!-- Add Task Modal -->
 <div id="addTaskModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded-lg w-1/3">
@@ -104,30 +119,37 @@
             <button id="closeModalButton" class="text-gray-700">&times;</button>
         </div>
         <form id="addTaskForm">
-            <!-- Task fields -->
-            <input type="text" id="taskTitle" placeholder="Title" class="w-full mb-2 p-2 border rounded">
-            <textarea id="taskDescription" placeholder="Description" class="w-full mb-2 p-2 border rounded"></textarea>
-            <select id="taskStatus" class="w-full mb-2 p-2 border rounded">
-                <option value="in_progress">In Progress</option>
+            <input type="text" id="taskTitle" class="inputField w-full mb-2 p-2 border rounded" placeholder="Title" required>
+            <div id="taskTitleError" class="text-red-500"></div>
+            <textarea id="taskDescription" class="inputField w-full mb-2 p-2 border rounded" placeholder="Description" required></textarea>
+            <div id="taskDescriptionError" class="text-red-500"></div>
+            <select id="taskStatus" class="inputField w-full mb-2 p-2 border rounded" required>
+                <option value="inprogress">In Progress</option>
                 <option value="completed">Completed</option>
                 <option value="overdue">Overdue</option>
             </select>
-            <select id="taskPriority" class="w-full mb-2 p-2 border rounded">
+            <div id="taskStatusError" class="text-red-500"></div>
+            <select id="taskPriority" class="inputField w-full mb-2 p-2 border rounded" required>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
-            <input type="datetime-local" id="taskDueDate" class="w-full mb-2 p-2 border rounded">
-            <select id="taskCategory" class="w-full mb-2 p-2 border rounded">
+            <div id="taskPriorityError" class="text-red-500"></div>
+            <input type="datetime-local" id="taskDueDate" class="inputField w-full mb-2 p-2 border rounded" required>
+            <div id="taskDueDateError" class="text-red-500"></div>
+            <select id="taskCategory" class="inputField w-full mb-2 p-2 border rounded" required>
                 <option value="UX Design">UX Design</option>
                 <option value="Development">Development</option>
                 <option value="Production">Production</option>
             </select>
-            <input type="text" id="taskAssignedTo" placeholder="Assigned To" class="w-full mb-2 p-2 border rounded">
+            <div id="taskCategoryError" class="text-red-500"></div>
+            <input type="text" id="taskAssignedTo" class="inputField w-full mb-2 p-2 border rounded" placeholder="Assigned To" required>
+            <div id="taskAssignedToError" class="text-red-500"></div>
             <button type="button" id="saveTaskButton" class="bg-purple-700 text-white px-4 py-2 rounded-lg">Save</button>
         </form>
     </div>
 </div>
+
 
 <!-- Edit Task Modal -->
 <div id="editTaskModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
@@ -141,7 +163,7 @@
             <input type="text" id="editTaskTitle" placeholder="Title" class="w-full mb-2 p-2 border rounded">
             <textarea id="editTaskDescription" placeholder="Description" class="w-full mb-2 p-2 border rounded"></textarea>
             <select id="editTaskStatus" class="w-full mb-2 p-2 border rounded">
-                <option value="in_progress">In Progress</option>
+                <option value="inprogress">In Progress</option>
                 <option value="completed">Completed</option>
                 <option value="overdue">Overdue</option>
             </select>
@@ -155,12 +177,48 @@
                 <option value="UX Design">UX Design</option>
                 <option value="Development">Development</option>
                 <option value="Production">Production</option>
-            </select>            <input type="text" id="editTaskAssignedTo" placeholder="Assigned To" class="w-full mb-2 p-2 border rounded">
+            </select>
+            <input type="text" id="editTaskAssignedTo" placeholder="Assigned To" class="w-full mb-2 p-2 border rounded">
+            <div id="editTaskFormErrors" class="text-red-500"></div> <!-- Error messages placeholder -->
             <button type="button" id="saveEditTaskButton" class="bg-purple-700 text-white px-4 py-2 rounded-lg">Save</button>
         </form>
     </div>
 </div>
 
+
+
+<!-- View Task Modal -->
+<div id="viewTaskModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg w-1/3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl">View Task</h2>
+            <button id="closeViewModalButton" class="text-gray-700">&times;</button>
+        </div>
+        <div>
+            <p><span class="text-xs text-gray-400">Title:</span> <br/>
+                <strong id="viewTaskTitle" class="text-2xl"></strong></p><br/>
+
+                <p><span class="text-xs text-gray-400">Description:</span> <br/>
+                    <strong id="viewTaskDescription" class="text-2xl"></strong></p><br/>
+
+                    <p><span class="text-xs text-gray-400">Status:</span> <br/>
+                        <strong id="viewTaskStatus" class="text-2xl"></strong></p><br/>
+    
+                        <p><span class="text-xs text-gray-400">Priority:</span> <br/>
+                        <strong id="viewTaskPriority" class="text-2xl"></strong></p><br/>
+
+                        <p><span class="text-xs text-gray-400">Due Date:</span> <br/>
+                            <strong id="viewTaskDueDate" class="text-2xl"></strong></p><br/>
+                            
+                        <p><span class="text-xs text-gray-400">Category:</span> <br/>
+                            <strong id="viewTaskCategory" class="text-2xl"></strong></p><br/>
+
+                            <p><span class="text-xs text-gray-400">Assigned To:</span> <br/>
+                                <strong id="viewTaskAssignedTo" class="text-2xl"></strong></p><br/>
+    
+            </div>
+    </div>
+</div>
 
 <!-- Delete Confirmation Modal -->
 <div id="deleteTaskModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
@@ -189,3 +247,4 @@
     };
 </script>
 <script src="{% static 'js/main.js' %}"></script>
+

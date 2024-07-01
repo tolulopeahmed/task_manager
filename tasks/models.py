@@ -2,7 +2,7 @@ from django.db import models
 
 class Task(models.Model):
     STATUS_CHOICES = [
-        ('in_progress', 'In Progress'),
+        ('inprogress', 'In Progress'),
         ('completed', 'Completed'),
         ('overdue', 'Overdue'),
     ]

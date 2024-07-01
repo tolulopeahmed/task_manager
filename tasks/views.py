@@ -22,9 +22,9 @@ class TaskViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['get'], url_path='in_progress')
-    def in_progress(self, request):
-        tasks = Task.objects.filter(status='in_progress')
+    @action(detail=False, methods=['get'], url_path='inprogress')
+    def inprogress(self, request):
+        tasks = Task.objects.filter(status='inprogress')
         serializer = self.get_serializer(tasks, many=True)
         return Response(serializer.data)
 
@@ -83,4 +83,11 @@ def task_list(request):
     return render(request, 'task_list.html')  # Ensure you have a 'task_list.html' template
 
 def task_status_list(request, status):
-    return render(request, 'task_status_list.html', {'status': status})  # Ensure you have a 'task_status_list.html' template
+    return render(request, 'task_status_list.html', {'status': status}) 
+
+
+
+from django.shortcuts import render
+
+def main_page(request):
+    return render(request, 'mainpage.html')
